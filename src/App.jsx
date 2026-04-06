@@ -86,31 +86,21 @@ async function uploadArtwork({ userName, type, grid, gridSize }) {
 // ============================================================
 // Wavy SVG
 // ============================================================
-function WavyLine({ flip, style: customStyle }) {
+function WavyLine({ side }) {
   return (
-    <svg
-      viewBox="0 0 500 80"
+    <img
+      src={side === "right" ? "/wavyline-right.png" : "/wavyline-left.png"}
+      alt=""
       style={{
         width: "100%",
-        height: 60,
-        transform: flip ? "scaleX(-1)" : "none",
+        height: 200,
+        objectFit: "contain",
         position: "absolute",
-        top: "10%",
+        top: 80,
         left: 0,
         zIndex: 0,
-        pointerEvents: "none",
-        ...customStyle,
       }}
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0,55 C60,10 120,70 200,40 C280,10 340,65 420,35 C460,20 500,50 500,45"
-        fill="none"
-        stroke="#333"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-      />
-    </svg>
+    />
   );
 }
 // ============================================================
@@ -133,7 +123,7 @@ function CategoryLabel({ cat, onClick, style }) {
       }}
     >
       <span style={{
-        fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+        fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
         fontSize: 11,
         fontWeight: "bold",
         color: cat.color,
@@ -143,7 +133,7 @@ function CategoryLabel({ cat, onClick, style }) {
         {cat.zh}
       </span>
       <span style={{
-        fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+        fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
         fontSize: 11,
         color: cat.color,
         marginLeft: 4,
@@ -177,7 +167,7 @@ function HomePage({ onNavigate }) {
       {/* Title — 左對齊, 旗黑字體, 大標題 */}
       <header style={{ padding: isMobile ? "24px 16px 40px" : "40px 40px 60px" }}>
         <h1 style={{
-          fontFamily: "'HYQiHei', 'Courier New', monospace",
+          fontFamily: "'HYQiHei', sans-serif",
           fontSize: isMobile ? 36 : 56,
           fontWeight: 400,
           color: "#222",
@@ -204,7 +194,7 @@ function HomePage({ onNavigate }) {
           zIndex: 2,
         }}>
           <span style={{
-            fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+            fontFamily: "'HYPixel 11px U'",
             fontSize: 16,
             color: "#333",
             fontWeight: "bold",
@@ -213,7 +203,7 @@ function HomePage({ onNavigate }) {
             目錄
           </span>
           <span style={{
-            fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+            fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
             fontSize: 14,
             color: "#333",
           }}>
@@ -246,7 +236,7 @@ function HomePage({ onNavigate }) {
                 <div style={{ fontSize: 64, lineHeight: 1 }}>👩‍💻</div>
               </div>
             </div>
-            <p style={{ fontFamily: "'HYPixel 11px U', 'Courier New', monospace", fontSize: 11, color: "#555", textAlign: "center", marginBottom: 16 }}>
+            <p style={{ fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif", fontSize: 11, color: "#555", textAlign: "center", marginBottom: 16 }}>
               Someone who is working all the time.
             </p>
             {/* Categories in grid */}
@@ -274,7 +264,7 @@ function HomePage({ onNavigate }) {
               alignSelf: "stretch",
               paddingTop: 40,
             }}>
-              <WavyLine />
+              <WavyLine side="life" />
               {/* 娛 Play — 最上面，往右偏 */}
               <CategoryLabel
                 cat={CATEGORIES.find(c => c.id === "play")}
@@ -332,7 +322,7 @@ function HomePage({ onNavigate }) {
 
               {/* "Someone who is working..." 文字在灰色區塊下方 */}
               <p style={{
-                fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+                fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
                 fontSize: 14,
                 color: "#666",
                 marginTop: 8,
@@ -356,7 +346,7 @@ function HomePage({ onNavigate }) {
               flexDirection: "column",
               alignItems: "flex-end",
             }}>
-              <WavyLine flip />
+              <WavyLine side="right" />
               {/* 維生 Survival — 最上面，靠右 */}
               <CategoryLabel
                 cat={CATEGORIES.find(c => c.id === "survival")}
@@ -388,7 +378,7 @@ function HomePage({ onNavigate }) {
         marginTop: "auto",
         padding: isMobile ? "30px 16px" : "40px",
         textAlign: "left",
-        fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+        fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
         fontSize: 15,
         color: "#555",
       }}>
@@ -421,11 +411,11 @@ function AboutPage({ onNavigate }) {
         <BackButton label="About our project" onClick={() => onNavigate("home")} />
         <div style={{ display: "flex", gap: isMobile ? 12 : 24, alignItems: "flex-start" }}>
           <div onClick={() => onNavigate("contributors")} style={{ cursor: "pointer", textAlign: "center" }}>
-  <p style={{ fontFamily: "'Courier New', monospace", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Contributors</p>
+  <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Contributors</p>
   <img src="/notebook.png" alt="Contributors" style={{ width: 120, height: 120, objectFit: "cover", borderRadius: 4 }} />
 </div>
 <div onClick={() => onNavigate("create")} style={{ cursor: "pointer", textAlign: "center" }}>
-  <p style={{ fontFamily: "'Courier New', monospace", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Join us</p>
+  <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Join us</p>
   <img src="/joinbook.png" alt="Join us" style={{ width: 130, height: 120, objectFit: "cover", borderRadius: 4 }} />
 </div>
         </div>
@@ -520,11 +510,11 @@ function ContributorsPage({ onNavigate, contributors }) {
           maxHeight: 360,
           overflowY: "auto",
         }}>
-          <p style={{ fontFamily: "'Courier New', monospace", fontSize: 13, fontWeight: "bold", margin: "0 0 10px 0", color: "#222" }}>
+          <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 13, fontWeight: "bold", margin: "0 0 10px 0", color: "#222" }}>
             User name
           </p>
           {contributors.map((name, i) => (
-            <p key={`${name}-${i}`} style={{ fontFamily: "'Courier New', monospace", fontSize: 12, margin: "3px 0", color: "#333" }}>
+            <p key={`${name}-${i}`} style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, margin: "3px 0", color: "#333" }}>
               • {name}
             </p>
           ))}
@@ -581,7 +571,7 @@ function CategoryPage({ categoryId, artworks, onNavigate }) {
         <div style={{
           textAlign: "left",
           marginTop: 80,
-          fontFamily: "'Courier New', monospace",
+          fontFamily: "'HYQiHei', sans-serif",
           color: "#999",
           fontSize: 16,
         }}>
@@ -591,7 +581,7 @@ function CategoryPage({ categoryId, artworks, onNavigate }) {
             onClick={() => onNavigate("create")}
             style={{
               marginTop: 16,
-              fontFamily: "'Courier New', monospace",
+              fontFamily: "'HYQiHei', sans-serif",
               fontSize: 14,
               padding: "10px 24px",
               background: "#333",
@@ -645,12 +635,12 @@ function CategoryPage({ categoryId, artworks, onNavigate }) {
                   {art.grid ? (
                     <MiniEmojiGrid grid={art.grid} gridSize={art.gridSize} containerSize={cardSize} />
                   ) : (
-                    <span style={{ fontFamily: "'Courier New', monospace", fontSize: 13, color: "#999" }}>
+                    <span style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 13, color: "#999" }}>
                       [ emoji artwork ]
                     </span>
                   )}
                 </div>
-                <p style={{ fontFamily: "'Courier New', monospace", fontSize: 12, color: "#555", marginTop: 8 }}>
+                <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#555", marginTop: 8 }}>
                   {art.userName}
                 </p>
               </div>
@@ -827,11 +817,11 @@ function CreatePage({ onNavigate, onUpload }) {
             <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
               <div style={{
                 flex: 1, background: "#f0f0f0", borderRadius: 8, padding: "6px 10px",
-                fontFamily: "'Courier New', monospace", fontSize: 12, color: "#999",
+                fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#999",
               }}>🔍 描述表情符號</div>
               <div style={{
                 background: "#f0f0f0", borderRadius: 8, padding: "6px 10px",
-                fontFamily: "'Courier New', monospace", fontSize: 11, color: "#4A90D9", fontWeight: "bold",
+                fontFamily: "'HYQiHei', sans-serif", fontSize: 11, color: "#4A90D9", fontWeight: "bold",
               }}>✨ Genmoji</div>
             </div>
 
@@ -886,7 +876,7 @@ function CreatePage({ onNavigate, onUpload }) {
             Unleash your creativity! Turn unique emoji tiles into stunning art. Piece together your imagination, upload your masterpiece, and share it with the world!
           </p>
 
-          <div style={{ marginBottom: 12, fontFamily: "'Courier New', monospace", fontSize: 13, color: "#666" }}>
+          <div style={{ marginBottom: 12, fontFamily: "'HYQiHei', sans-serif", fontSize: 13, color: "#666" }}>
             {isEraser ? "🧹 Eraser mode" : `Selected: ${selectedEmoji}`}
           </div>
 
@@ -929,7 +919,7 @@ function CreatePage({ onNavigate, onUpload }) {
               onMouseEnter={() => setUploadHover(true)}
               onMouseLeave={() => setUploadHover(false)}
               style={{
-                fontFamily: "'Courier New', monospace",
+                fontFamily: "'HYQiHei', sans-serif",
                 fontSize: 15,
                 padding: "10px 32px",
                 background: uploading ? "#999" : (uploadHover ? "#333" : "#E0E0E0"),
@@ -1001,13 +991,13 @@ function BackButton({ label, onClick }) {
     >
       <span style={{
         fontSize: 26,
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'HYQiHei', sans-serif",
         color: "#222",
         transform: hover ? "translateX(-4px)" : "none",
         transition: "transform 0.2s",
       }}>←</span>
       <h1 style={{
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'HYQiHei', sans-serif",
         fontSize: "clamp(22px, 3.5vw, 44px)",
         fontWeight: 400,
         margin: 0,
@@ -1033,7 +1023,7 @@ function NavChip({ label, emoji, onClick }) {
         transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
       }}
     >
-      <p style={{ fontFamily: "'Courier New', monospace", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>{label}</p>
+      <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>{label}</p>
       <div style={{
         width: 70, height: 80,
         background: "linear-gradient(135deg, #E8E0D4 0%, #F5F0EA 100%)",
@@ -1066,7 +1056,7 @@ function ToolButton({ active, onClick, label }) {
     <button
       onClick={onClick}
       style={{
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'HYQiHei', sans-serif",
         fontSize: 12,
         padding: "5px 10px",
         background: active ? "#333" : "#eee",
@@ -1086,7 +1076,7 @@ function ToolButton({ active, onClick, label }) {
 // STYLES
 // ============================================================
 const labelStyle = {
-  fontFamily: "'Courier New', monospace",
+  fontFamily: "'HYQiHei', sans-serif",
   fontSize: 13,
   color: "#333",
   display: "block",
@@ -1094,7 +1084,7 @@ const labelStyle = {
 };
 
 const inputStyle = {
-  fontFamily: "'Courier New', monospace",
+  fontFamily: "'HYQiHei', sans-serif",
   fontSize: 14,
   padding: "8px 12px",
   border: "1px solid #ccc",
@@ -1107,7 +1097,7 @@ const inputStyle = {
 };
 
 const proseStyle = {
-  fontFamily: "'Courier New', monospace",
+  fontFamily: "'HYQiHei', sans-serif",
   fontSize: 14,
   lineHeight: 1.8,
   color: "#333",
@@ -1170,7 +1160,7 @@ export default function App() {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontFamily: "'Courier New', monospace",
+        fontFamily: "'HYQiHei', sans-serif",
         fontSize: 16,
         color: "#666",
       }}>

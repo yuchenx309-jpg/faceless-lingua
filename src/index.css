@@ -1,3 +1,23 @@
+@font-face {
+  font-family: 'HYQiHei';
+  src: url('/HYQiHei45S.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HYPixel 11px U';
+  src: url('/HYPixel11.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+* {
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+}
+
 :root {
   --text: #6b6375;
   --text-h: #08060d;
@@ -20,7 +40,7 @@
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
-  font-synthesis: none;
+  font-synthesis: auto;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
