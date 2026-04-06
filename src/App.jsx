@@ -86,14 +86,33 @@ async function uploadArtwork({ userName, type, grid, gridSize }) {
 // ============================================================
 // Wavy SVG
 // ============================================================
-function WavyLine({ flip }) {
+function WavyLine({ flip, style: customStyle }) {
   return (
-    <svg viewBox="0 0 400 60" style={{ width: "100%", height: 40, transform: flip ? "scaleX(-1)" : "none" }} preserveAspectRatio="none">
-      <path d="M0,30 C50,5 100,55 150,30 C200,5 250,55 300,30 C350,5 400,55 400,30" fill="none" stroke="#333" strokeWidth="2" />
+    <svg
+      viewBox="0 0 500 80"
+      style={{
+        width: "100%",
+        height: 60,
+        transform: flip ? "scaleX(-1)" : "none",
+        position: "absolute",
+        top: "10%",
+        left: 0,
+        zIndex: 0,
+        pointerEvents: "none",
+        ...customStyle,
+      }}
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0,55 C60,10 120,70 200,40 C280,10 340,65 420,35 C460,20 500,50 500,45"
+        fill="none"
+        stroke="#333"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
-
 // ============================================================
 // Category Label
 // ============================================================
@@ -108,14 +127,27 @@ function CategoryLabel({ cat, onClick, style }) {
         cursor: "pointer",
         transform: hover ? "scale(1.25)" : "scale(1)",
         transition: "transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
-        textAlign: "left",
+        zIndex: 1,
+        position: "relative",
         ...style,
       }}
     >
-      <span style={{ fontFamily: "'Courier New', monospace", fontSize: 18, fontWeight: "bold", color: cat.color, display: "block" }}>
+      <span style={{
+        fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+        fontSize: 11,
+        fontWeight: "bold",
+        color: cat.color,
+        display: "inline",
+        letterSpacing: 2,
+      }}>
         {cat.zh}
       </span>
-      <span style={{ fontFamily: "'Courier New', monospace", fontSize: 15, color: cat.color }}>
+      <span style={{
+        fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+        fontSize: 11,
+        color: cat.color,
+        marginLeft: 4,
+      }}>
         {cat.en}
       </span>
     </div>
@@ -133,9 +165,6 @@ function HomePage({ onNavigate }) {
 
   useEffect(() => { setTimeout(() => setLoaded(true), 100); }, []);
 
-  const leftCats = CATEGORIES.slice(0, 3);
-  const rightCats = CATEGORIES.slice(3, 6);
-
   return (
     <div style={{
       minHeight: "100vh",
@@ -145,115 +174,222 @@ function HomePage({ onNavigate }) {
       opacity: loaded ? 1 : 0,
       transition: "opacity 0.8s ease",
     }}>
-      <header style={{ padding: isMobile ? "30px 20px 10px" : "50px 40px 20px" }}>
+      {/* Title — 左對齊, 旗黑字體, 大標題 */}
+      <header style={{ padding: isMobile ? "24px 16px 40px" : "40px 40px 60px" }}>
         <h1 style={{
-          fontFamily: "'Courier New', monospace",
-          fontSize: isMobile ? 28 : "clamp(36px, 5vw, 56px)",
+          fontFamily: "'HYQiHei', 'Courier New', monospace",
+          fontSize: isMobile ? 36 : 56,
           fontWeight: 400,
           color: "#222",
           margin: 0,
+          textAlign: "left",
+          letterSpacing: -1,
         }}>
           Faceless Lingua
         </h1>
       </header>
 
-      <div style={{ padding: isMobile ? "8px 20px" : "10px 40px" }}>
-        <span style={{ fontFamily: "'Courier New', monospace", fontSize: 14, color: "#222", fontWeight: "bold" }}>
-          目錄 contents
-        </span>
-      </div>
-
+      {/* Grey content area */}
       <div style={{
         background: "#D5D5D5",
-        padding: isMobile ? "24px 16px" : "30px 40px",
-        display: "flex",
-        alignItems: isMobile ? "flex-start" : "center",
-        justifyContent: "center",
-        gap: isMobile ? 12 : 20,
-        flexDirection: isMobile ? "column" : "row",
-        flexWrap: "wrap",
-        minHeight: isMobile ? "auto" : 220,
+        position: "relative",
+        minHeight: isMobile ? "auto" : 280,
+        overflow: "visible",
       }}>
+        {/* 目錄 contents — 在灰色區塊左上角裡面 */}
+        <div style={{
+          position: "absolute",
+          top: isMobile ? 12 : 16,
+          left: isMobile ? 12 : 20,
+          zIndex: 2,
+        }}>
+          <span style={{
+            fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+            fontSize: 16,
+            color: "#333",
+            fontWeight: "bold",
+            display: "block",
+          }}>
+            目錄
+          </span>
+          <span style={{
+            fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+            fontSize: 14,
+            color: "#333",
+          }}>
+            contents
+          </span>
+        </div>
+
         {isMobile ? (
-          <>
-            <div style={{ display: "flex", justifyContent: "center", width: "100%", marginBottom: 12 }}>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          /* ===== MOBILE LAYOUT ===== */
+          <div style={{ padding: "50px 16px 24px" }}>
+            {/* Emoji character */}
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
+              <div style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <div
                   onClick={() => onNavigate("about")}
                   onMouseEnter={() => setBubbleHover(true)}
                   onMouseLeave={() => setBubbleHover(false)}
                   style={{
-                    width: 54, height: 44, background: "#fff", borderRadius: "50%",
+                    width: 50, height: 42, background: "#fff", borderRadius: "50%",
                     display: "flex", alignItems: "center", justifyContent: "center",
                     cursor: "pointer", boxShadow: "0 2px 8px rgba(0,0,0,0.12)",
                     transform: bubbleHover ? "scale(1.15)" : "scale(1)",
                     transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
-                    marginBottom: -4, zIndex: 2, position: "relative",
+                    position: "absolute", top: -20, right: -30, zIndex: 3,
                   }}
                 >
-                  <span style={{ fontSize: 18, letterSpacing: 1 }}>•••</span>
-                  <div style={{ position: "absolute", bottom: -7, left: "30%", width: 0, height: 0, borderLeft: "6px solid transparent", borderRight: "6px solid transparent", borderTop: "8px solid #fff" }} />
+                  <span style={{ fontSize: 16, letterSpacing: 1, color: "#333" }}>•••</span>
+                  <div style={{ position: "absolute", bottom: -6, left: "25%", width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "7px solid #fff" }} />
                 </div>
                 <div style={{ fontSize: 64, lineHeight: 1 }}>👩‍💻</div>
-                <p style={{ fontFamily: "'Courier New', monospace", fontSize: 10, color: "#555", marginTop: 4, textAlign: "center" }}>
-                  Someone who is working all<br />the time.
-                </p>
               </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 12, width: "100%" }}>
+            <p style={{ fontFamily: "'HYPixel 11px U', 'Courier New', monospace", fontSize: 11, color: "#555", textAlign: "center", marginBottom: 16 }}>
+              Someone who is working all the time.
+            </p>
+            {/* Categories in grid */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 10, width: "100%" }}>
               {CATEGORIES.map((cat) => (
-                <CategoryLabel key={cat.id} cat={cat} onClick={(id) => onNavigate("category", id)} />
+                <CategoryLabel key={cat.id} cat={cat} onClick={(id) => onNavigate("category", id)} style={{ textAlign: "center" }} />
               ))}
             </div>
-          </>
+          </div>
         ) : (
-          <>
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, flex: "1 1 160px", maxWidth: 200 }}>
+          /* ===== DESKTOP LAYOUT ===== */
+          <div style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+            padding: "20px 40px 0",
+            minHeight: 280,
+            position: "relative",
+          }}>
+            {/* Left categories — 階梯式排列 */}
+            <div style={{
+              flex: "1 1 280px",
+              maxWidth: 320,
+              position: "relative",
+              alignSelf: "stretch",
+              paddingTop: 40,
+            }}>
               <WavyLine />
-              {leftCats.map((cat, i) => (
-                <CategoryLabel key={cat.id} cat={cat} onClick={(id) => onNavigate("category", id)} style={{ marginLeft: i * 20 }} />
-              ))}
+              {/* 娛 Play — 最上面，往右偏 */}
+              <CategoryLabel
+                cat={CATEGORIES.find(c => c.id === "play")}
+                onClick={(id) => onNavigate("category", id)}
+                style={{ position: "relative", marginLeft: 60, marginBottom: 8 }}
+              />
+              {/* 工作 Work — 中間，最左邊 */}
+              <CategoryLabel
+                cat={CATEGORIES.find(c => c.id === "work")}
+                onClick={(id) => onNavigate("category", id)}
+                style={{ position: "relative", marginLeft: 0, marginBottom: 8 }}
+              />
+              {/* 成長 Growth — 最下面，更往右 */}
+              <CategoryLabel
+                cat={CATEGORIES.find(c => c.id === "growth")}
+                onClick={(id) => onNavigate("category", id)}
+                style={{ position: "relative", marginLeft: 100 }}
+              />
             </div>
 
-            <div style={{ flex: "0 0 auto", display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <div
-                onClick={() => onNavigate("about")}
-                onMouseEnter={() => setBubbleHover(true)}
-                onMouseLeave={() => setBubbleHover(false)}
-                style={{
-                  width: 64, height: 52, background: "#fff", borderRadius: "50%",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  cursor: "pointer", boxShadow: "0 2px 12px rgba(0,0,0,0.15)",
-                  transform: bubbleHover ? "scale(1.2)" : "scale(1)",
-                  transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
-                  marginBottom: -6, zIndex: 2, position: "relative",
-                }}
-              >
-                <span style={{ fontSize: 22, letterSpacing: 1 }}>•••</span>
-                <div style={{ position: "absolute", bottom: -8, left: "30%", width: 0, height: 0, borderLeft: "8px solid transparent", borderRight: "8px solid transparent", borderTop: "10px solid #fff" }} />
-              </div>
-              <div style={{ fontSize: 80, lineHeight: 1, marginTop: 4 }}>👩‍💻</div>
-              <p style={{ fontFamily: "'Courier New', monospace", fontSize: 11, color: "#555", marginTop: 6, textAlign: "center" }}>
+            {/* Center — Emoji character + speech bubble */}
+            <div style={{
+              flex: "0 0 auto",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              position: "relative",
+              marginBottom: 0,
+              zIndex: 2,
+            }}>
+              {/* Speech bubble — 右上方 */}
+              
+
+              {/* Emoji 小人 — 底部對齊灰色區塊 */}
+              <div style={{ position: "relative", marginTop: 30 }}>
+  <img src="/womanlight.png" alt="Woman working" style={{ width: 150, height: "auto", display: "block" }} />
+  <img
+    src="/speech.png"
+    alt="Speech bubble"
+    onClick={() => onNavigate("about")}
+    onMouseEnter={() => setBubbleHover(true)}
+    onMouseLeave={() => setBubbleHover(false)}
+    style={{
+      width: 80,
+      height: "auto",
+      position: "absolute",
+      top: -30,
+      right: -50,
+      cursor: "pointer",
+      transform: bubbleHover ? "scale(1.15)" : "scale(1)",
+      transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
+    }}
+  />
+</div>
+
+              {/* "Someone who is working..." 文字在灰色區塊下方 */}
+              <p style={{
+                fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+                fontSize: 14,
+                color: "#666",
+                marginTop: 8,
+                marginBottom: -30,
+                textAlign: "center",
+                position: "relative",
+                zIndex: 2,
+              }}>
                 Someone who is working all<br />the time.
               </p>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: 14, flex: "1 1 160px", maxWidth: 200, alignItems: "flex-end" }}>
+            {/* Right categories — 階梯式排列 */}
+            <div style={{
+              flex: "1 1 280px",
+              maxWidth: 320,
+              position: "relative",
+              alignSelf: "stretch",
+              paddingTop: 40,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
+            }}>
               <WavyLine flip />
-              {rightCats.map((cat, i) => (
-                <CategoryLabel key={cat.id} cat={cat} onClick={(id) => onNavigate("category", id)} style={{ marginRight: i * 20 }} />
-              ))}
+              {/* 維生 Survival — 最上面，靠右 */}
+              <CategoryLabel
+                cat={CATEGORIES.find(c => c.id === "survival")}
+                onClick={(id) => onNavigate("category", id)}
+                style={{ position: "relative", marginRight: 0, marginBottom: 8 }}
+              />
+              {/* 連結 Connection — 中間 */}
+              <CategoryLabel
+                cat={CATEGORIES.find(c => c.id === "connection")}
+                onClick={(id) => onNavigate("category", id)}
+                style={{ position: "relative", marginRight: 80, marginBottom: 8 }}
+              />
+              {/* 發呆 Void — 最下面，最右邊 */}
+              <CategoryLabel
+                cat={CATEGORIES.find(c => c.id === "void")}
+                onClick={(id) => onNavigate("category", id)}
+                style={{ position: "relative", marginRight: 0 }}
+              />
             </div>
-          </>
+          </div>
         )}
       </div>
 
+      {/* "Someone who is working" text — outside grey box on desktop */}
+      {!isMobile && <div style={{ height: 40 }} />}
+
+      {/* Footer */}
       <footer style={{
         marginTop: "auto",
-        padding: isMobile ? "30px 20px" : "40px",
+        padding: isMobile ? "30px 16px" : "40px",
         textAlign: "left",
-        fontFamily: "'Courier New', monospace",
-        fontSize: 13,
+        fontFamily: "'HYPixel 11px U', 'Courier New', monospace",
+        fontSize: 15,
         color: "#555",
       }}>
         <p style={{ margin: "4px 0" }}>Email:yuchenx309@gmail.com</p>
@@ -262,6 +398,7 @@ function HomePage({ onNavigate }) {
     </div>
   );
 }
+
 
 // ============================================================
 // ABOUT PAGE
