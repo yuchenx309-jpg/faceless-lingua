@@ -124,8 +124,8 @@ function CategoryLabel({ cat, onClick, style }) {
     >
       <span style={{
         fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
-        fontSize: 11,
-        fontWeight: "bold",
+        fontSize: 20,
+        fontWeight: "normal",
         color: cat.color,
         display: "inline",
         letterSpacing: 2,
@@ -134,9 +134,9 @@ function CategoryLabel({ cat, onClick, style }) {
       </span>
       <span style={{
         fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
-        fontSize: 11,
+        fontSize: 19,
         color: cat.color,
-        marginLeft: 4,
+        marginLeft: 10,
       }}>
         {cat.en}
       </span>
@@ -170,7 +170,7 @@ function HomePage({ onNavigate }) {
           fontFamily: "'HYQiHei', sans-serif",
           fontSize: isMobile ? 36 : 56,
           fontWeight: 400,
-          color: "#222",
+          color: "#000000",
           margin: 0,
           textAlign: "left",
           letterSpacing: -1,
@@ -195,17 +195,18 @@ function HomePage({ onNavigate }) {
         }}>
           <span style={{
             fontFamily: "'HYPixel 11px U'",
-            fontSize: 16,
-            color: "#333",
-            fontWeight: "bold",
+            fontSize: 20,
+            color: "#000000",
+            fontWeight: "normal",
             display: "block",
+            textAlign: "left",
           }}>
             目錄
           </span>
           <span style={{
             fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
-            fontSize: 14,
-            color: "#333",
+            fontSize:19,
+            color: "#000000",
           }}>
             contents
           </span>
@@ -230,7 +231,7 @@ function HomePage({ onNavigate }) {
                     position: "absolute", top: -20, right: -30, zIndex: 3,
                   }}
                 >
-                  <span style={{ fontSize: 16, letterSpacing: 1, color: "#333" }}>•••</span>
+                  <span style={{ fontSize: 16, letterSpacing: 1, color: "#000000" }}>•••</span>
                   <div style={{ position: "absolute", bottom: -6, left: "25%", width: 0, height: 0, borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "7px solid #fff" }} />
                 </div>
                 <div style={{ fontSize: 64, lineHeight: 1 }}>👩‍💻</div>
@@ -253,7 +254,7 @@ function HomePage({ onNavigate }) {
             alignItems: "flex-end",
             justifyContent: "center",
             padding: "20px 40px 0",
-            minHeight: 280,
+            minHeight: 150,
             position: "relative",
           }}>
             {/* Left categories — 階梯式排列 */}
@@ -326,7 +327,7 @@ function HomePage({ onNavigate }) {
                 fontSize: 14,
                 color: "#666",
                 marginTop: 8,
-                marginBottom: -30,
+                marginBottom: -60,
                 textAlign: "center",
                 position: "relative",
                 zIndex: 2,
@@ -377,8 +378,8 @@ function HomePage({ onNavigate }) {
       <footer style={{
         marginTop: "auto",
         padding: isMobile ? "30px 16px" : "40px",
-        textAlign: "left",
-        fontFamily: "'HYPixel 11px U', 'HYQiHei', sans-serif",
+        textAlign: "center",
+        fontFamily: "'HYQiHei', 'HYPixel 11px U', sans-serif",
         fontSize: 15,
         color: "#555",
       }}>
@@ -411,44 +412,48 @@ function AboutPage({ onNavigate }) {
         <BackButton label="About our project" onClick={() => onNavigate("home")} />
         <div style={{ display: "flex", gap: isMobile ? 12 : 24, alignItems: "flex-start" }}>
           <div onClick={() => onNavigate("contributors")} style={{ cursor: "pointer", textAlign: "center" }}>
-  <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Contributors</p>
-  <img src="/notebook.png" alt="Contributors" style={{ width: 120, height: 120, objectFit: "cover", borderRadius: 4 }} />
-</div>
-<div onClick={() => onNavigate("create")} style={{ cursor: "pointer", textAlign: "center" }}>
-  <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Join us</p>
-  <img src="/joinbook.png" alt="Join us" style={{ width: 130, height: 120, objectFit: "cover", borderRadius: 4 }} />
-</div>
+            <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Contributors</p>
+            <img src="/notebook.png" alt="Contributors" style={{ width: 120, height: 120, objectFit: "cover", borderRadius: 4 }} />
+          </div>
+          <div onClick={() => onNavigate("create")} style={{ cursor: "pointer", textAlign: "center" }}>
+            <p style={{ fontFamily: "'HYQiHei', sans-serif", fontSize: 12, color: "#333", margin: "0 0 4px 0" }}>Join us</p>
+            <img src="/joinbook.png" alt="Join us" style={{ width: 130, height: 120, objectFit: "cover", borderRadius: 4 }} />
+          </div>
         </div>
       </div>
 
       <div style={{
-  display: "flex",
-  gap: isMobile ? 24 : 40,
-  marginTop: 32,
-  flexDirection: isMobile ? "column" : "row",
-}}>
-  <div style={{ flex: "1 1 300px", maxWidth: isMobile ? "100%" : 500 }}>
-    <img
-      src="/faces.jpg"
-      alt="Faces"
-      style={{
-        width: "100%",
-        maxWidth: 300,
-        borderRadius: 2,
-        marginBottom: 16,
-        display: "block",
-      }}
-    />
-    <Dot />
-    <p style={proseStyle}>
-      The inception of this project stems from my observation of the "lightweight" phenomenon in daily communication. In the digital age, emojis have become one of our most ubiquitous languages. They are lighter than any text; a single symbol can transcend nationalities, languages, and cultural backgrounds, allowing any two people on Earth to exchange emotions with nearly zero barriers.
-    </p>
-  </div>
-  <div style={{ flex: "1 1 300px", maxWidth: isMobile ? "100%" : 500, paddingTop: isMobile ? 0 : 60 }}>
-          <p style={proseStyle}>
+        display: "flex",
+        gap: isMobile ? 24 : 80,
+        marginTop: 32,
+        flexDirection: isMobile ? "column" : "row",
+      }}>
+        <div style={{ flex: "1 1 280px", maxWidth: isMobile ? "100%" : 420 }}>
+          <img
+            src="/faces.jpg"
+            alt="Faces"
+            style={{
+              width: 100,
+              height: 160,
+              objectFit: "cover",
+              borderRadius: 2,
+              marginBottom: 10,
+              marginTop: -20,
+              marginLeft: 30,
+              display: "block",
+              marginLeft: "auto",
+            }}
+          />
+          <Dot />
+          <p style={{ fontFamily: "'HYPixel 11px U', 'HYQiHei', monospace", fontSize: 14, lineHeight: 1.8, color: "#000000", marginTop: -20,margin: 0,textAlign: "left" }}>
+            The inception of this project stems from my observation of the "lightweight" phenomenon in daily communication. In the digital age, emojis have become one of our most ubiquitous languages. They are lighter than any text; a single symbol can transcend nationalities, languages, and cultural backgrounds, allowing any two people on Earth to exchange emotions with nearly zero barriers.
+          </p>
+        </div>
+        <div style={{ flex: "1 1 280px", maxWidth: isMobile ? "100%" : 460 }}>
+          <p style={{ fontFamily: "'HYPixel 11px U', 'HYQiHei', monospace", fontSize: 14, lineHeight: 1.8, color: "#000000",marginTop: -20, margin: 0 ,textAlign: "left"}}>
             However, I began to realize that a complex issue lies beneath this lightness. Emojis compress continuous, subtle, and multifaceted human expressions into dozens of standardized icons. We believe we are expressing emotions, but often, we are merely "performing" them. Every time we send an emoji, it is a choice—not of what to express, but of which mask to use for our self-presentation.
           </p>
-          <p style={{ ...proseStyle, marginTop: 20 }}>
+          <p style={{ fontFamily: "'HYPixel 11px U', 'HYQiHei', monospace", fontSize: 14, lineHeight: 1.8, color: "#000000", marginTop: -20,margin: 0, marginTop: 20, textAlign: "left"}}>
             Simultaneously, emojis represent a history of "who has the right to be seen." From the original monolithic icons to the gradual inclusion of diverse skin tones, genders, and disability symbols, every update is a discourse on inclusion and representation. This project seeks to re-examine this visual language: when we send an emoji, are we truly drawing closer to one another, or are we replacing our unique identity with a collective, standardized face?
           </p>
         </div>
@@ -456,7 +461,6 @@ function AboutPage({ onNavigate }) {
     </div>
   );
 }
-
 // ============================================================
 // CONTRIBUTORS PAGE (independent)
 // ============================================================
